@@ -4,6 +4,14 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
-.App {
-  /* text-align: center; */
+.MuiInputBase-input {
+  font-size: 24px !important;
+}
+
+.MuiFormLabel-root {
+  font-size: 20px !important;
+}
+
+.recharts-default-tooltip {
+  background-color: #141414 !important;
 }
