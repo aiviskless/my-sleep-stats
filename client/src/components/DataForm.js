@@ -1,0 +1,154 @@
+import React, { useState } from "react";
+import { Button, Grid, Box } from "@material-ui/core";
+import { TimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import MomentUtils from "@date-io/moment";
+import AddIcon from "@material-ui/icons/Add";
+import EditIcon from "@material-ui/icons/Edit";
+import Fab from "@material-ui/core/Fab";
+import moment from "moment";
+
+export const DataForm = ({ data, setData }) => {
+  const [sleepTime, setSleepTime] = useState({
+    from: new Date("2020-01-01T23:00:00"),
+    to: new Date("2020-01-02T07:00:00"),
+  });
+
+  const [napTime, setNapTime] = useState({
+    from: new Date("2020-01-02T14:00:00"),
+    to: new Date("2020-01-02T15:00:00"),
+  });
+
+  const getSleepTime = (from, to) => {
+    return ((to - from) / 3600000) % 24;
+  };
+
+  const submitSleep = () => {
+    setData([
+      ...data,
+      {
+        date: moment().format(),
+        day: moment().format("ddd"),
+        Recommended: 8,
+        Sleep: getSleepTime(sleepTime.from, sleepTime.to),
+        Nap: 0,
+      },
+    ]);
+  };
+  const submitNap = () => {
+    const newData = [...data];
+    newData[data.length - 1].Nap = getSleepTime(napTime.from, napTime.to);
+    setData(newData);
+  };
+
+  const removeLastItem = () => {
+    const newData = [...data];
+    newData.pop();
+    setData(newData);
+  };
+
+  const Pickers = ({ type }) => {
+    const timePickerStyle = {
+      marginRight: 20,
+      width: 100,
+    };
+
+    const config = {
+      from: type === "sleep" ? sleepTime.from : napTime.from,
+      to: type === "sleep" ? sleepTime.to : napTime.to,
+      set: type === "sleep" ? setSleepTime : setNapTime,
+      submit: type === "sleep" ? submitSleep : submitNap,
+    };
+
+    return (
+      <Grid container direction="row" justify="center" alignItems="center">
+        <TimePicker
+          clearable
+          autoOk
+          ampm={false}
+          label="From"
+          value={config.from}
+          onChange={(e) => config.set({ from: e._d, to: config.to })}
+          style={timePickerStyle}
+        />
+        <TimePicker
+          clearable
+          autoOk
+          ampm={false}
+          label="To"
+          value={config.to}
+          onChange={(e) => config.set({ from: config.from, to: e._d })}
+          style={timePickerStyle}
+        />
+        <Fab
+          fontSize="small"
+          onClick={() => config.submit()}
+          color="primary"
+          style={{ width: 50, height: 50 }}
+        >
+          <AddIcon fontSize="small" />
+        </Fab>
+      </Grid>
+    );
+  };
+  console.log(data);
+  return (
+    <MuiPickersUtilsProvider utils={MomentUtils}>
+      <Box mt={4} ml={2}>
+        <Grid container direction="column" justify="center" alignItems="center">
+          {/* check if sleep is filled */}
+          {moment(data[data.length - 1].date).format("MMM Do YY") ===
+          moment().format("MMM Do YY") ? (
+            <>
+              <h2>Have a nice day!</h2>
+              <Box mt={3}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => removeLastItem()}
+                  startIcon={<EditIcon />}
+                >
+                  Edit
+                </Button>
+              </Box>
+
+              {/* check if nap is filled */}
+              {data[data.length - 1].Nap === 0 && (
+                <>
+                  <Box mt={5}>
+                    <Grid
+                      container
+                      direction="row"
+                      justify="center"
+                      alignItems="center"
+                    >
+                      <h3>Had a nap today?</h3>{" "}
+                      <Box ml={1}>
+                        <Fab
+                          fontSize="small"
+                          // onClick={() => config.submit()}
+                          color="primary"
+                          style={{ width: 35, height: 35 }}
+                        >
+                          <AddIcon fontSize="small" />
+                        </Fab>
+                      </Box>
+                    </Grid>
+                  </Box>
+                  {/* <Pickers type="nap" /> */}
+                </>
+              )}
+            </>
+          ) : (
+            <>
+              {/* default state */}
+              <Box mb={2}>
+                <h2>How was your sleep tonight?</h2>
+              </Box>
+              <Pickers type="sleep" />
+            </>
+          )}
+        </Grid>
+      </Box>
+    </MuiPickersUtilsProvider>
+  );
+};
