@@ -32,7 +32,7 @@ const App = () => {
       date: "",
       day: "Sat",
       Recommended: 8,
-      Sleep: 6,
+      Sleep: 7.5,
       Nap: 0,
     },
   ];
@@ -43,7 +43,7 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <Box mt={5}>
         <Grid container direction="column" justify="center" alignItems="center">
-          <Chart data={data} />
+          <Chart data={data.slice(Math.max(data.length - 7, 0))} />
           <DataForm data={data} setData={setData} />
           <Logout />
         </Grid>

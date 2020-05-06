@@ -5,7 +5,7 @@ export const Logout = () => {
     <div
       style={{
         position: "absolute",
-        bottom: 10,
+        bottom: 25,
         left: "50%",
         transform: "translateX(-50%)",
       }}

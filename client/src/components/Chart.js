@@ -16,7 +16,7 @@ export const Chart = ({ data }) => {
       <h1>Aivis's Sleep Stats</h1>
       <ComposedChart
         style={{ marginLeft: -50, marginTop: 20 }}
-        width={400}
+        width={360}
         height={300}
         data={data}
       >

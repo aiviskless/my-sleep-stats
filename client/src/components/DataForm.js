@@ -18,6 +18,8 @@ export const DataForm = ({ data, setData }) => {
     to: new Date("2020-01-02T15:00:00"),
   });
 
+  const [showNap, setShowNap] = useState(false);
+
   const getSleepTime = (from, to) => {
     return ((to - from) / 3600000) % 24;
   };
@@ -37,6 +39,7 @@ export const DataForm = ({ data, setData }) => {
   const submitNap = () => {
     const newData = [...data];
     newData[data.length - 1].Nap = getSleepTime(napTime.from, napTime.to);
+    setShowNap(false);
     setData(newData);
   };
 
@@ -90,42 +93,44 @@ export const DataForm = ({ data, setData }) => {
       </Grid>
     );
   };
-  console.log(data);
+
   return (
     <MuiPickersUtilsProvider utils={MomentUtils}>
-      <Box mt={4} ml={2}>
+      <Box mt={3}>
         <Grid container direction="column" justify="center" alignItems="center">
           {/* check if sleep is filled */}
           {moment(data[data.length - 1].date).format("MMM Do YY") ===
           moment().format("MMM Do YY") ? (
             <>
-              <h2>Have a nice day!</h2>
-              <Box mt={3}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => removeLastItem()}
-                  startIcon={<EditIcon />}
-                >
-                  Edit
-                </Button>
+              <Box textAlign="center" display={showNap ? "none" : "block"}>
+                <h2>Have a nice day!</h2>
+                <Box mt={3}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => removeLastItem()}
+                    startIcon={<EditIcon />}
+                  >
+                    Edit
+                  </Button>
+                </Box>
               </Box>
 
               {/* check if nap is filled */}
               {data[data.length - 1].Nap === 0 && (
                 <>
-                  <Box mt={5}>
+                  <Box display={showNap ? "none" : "block"} mt={3}>
                     <Grid
                       container
                       direction="row"
                       justify="center"
                       alignItems="center"
                     >
-                      <h3>Had a nap today?</h3>{" "}
+                      <h3>Had a nap today?</h3>
                       <Box ml={1}>
                         <Fab
                           fontSize="small"
-                          // onClick={() => config.submit()}
+                          onClick={() => setShowNap(true)}
                           color="primary"
                           style={{ width: 35, height: 35 }}
                         >
@@ -134,17 +139,28 @@ export const DataForm = ({ data, setData }) => {
                       </Box>
                     </Grid>
                   </Box>
-                  {/* <Pickers type="nap" /> */}
+                  {showNap && (
+                    <>
+                      <Box>
+                        <Box mb={1}>
+                          <h3>Add nap time</h3>
+                        </Box>
+                        <Pickers type="nap" />
+                      </Box>
+                    </>
+                  )}
                 </>
               )}
             </>
           ) : (
             <>
               {/* default state */}
-              <Box mb={2}>
-                <h2>How was your sleep tonight?</h2>
+              <Box>
+                <Box mb={1}>
+                  <h3>Add sleep time</h3>
+                </Box>
+                <Pickers type="sleep" />
               </Box>
-              <Pickers type="sleep" />
             </>
           )}
         </Grid>
