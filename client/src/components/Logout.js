@@ -1,16 +1,9 @@
 import React from "react";
+import { connect } from "react-redux";
+import { logout } from "../actions/authActions";
 
-export const Logout = () => {
-  return (
-    <div
-      style={{
-        position: "absolute",
-        bottom: 25,
-        left: "50%",
-        transform: "translateX(-50%)",
-      }}
-    >
-      Logout
-    </div>
-  );
+const Logout = ({ logout }) => {
+  return <div onClick={() => logout()}>Logout</div>;
 };
+
+export default connect(null, { logout })(Logout);

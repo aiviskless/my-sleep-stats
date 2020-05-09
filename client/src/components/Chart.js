@@ -10,10 +10,10 @@ import {
   Tooltip,
 } from "recharts";
 
-export const Chart = ({ data }) => {
+export const Chart = ({ data, userName }) => {
   return (
     <>
-      <h1>Aivis's Sleep Stats</h1>
+      <h1>{userName}'s Sleep Stats</h1>
       <ComposedChart
         style={{ marginLeft: -50, marginTop: 20 }}
         width={360}

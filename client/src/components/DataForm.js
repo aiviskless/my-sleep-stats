@@ -7,7 +7,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import Fab from "@material-ui/core/Fab";
 import moment from "moment";
 
-export const DataForm = ({ data, setData }) => {
+export const DataForm = ({ data, deleteItem, addItem, userId, editItem }) => {
   const [sleepTime, setSleepTime] = useState({
     from: new Date("2020-01-01T23:00:00"),
     to: new Date("2020-01-02T07:00:00"),
@@ -25,28 +25,28 @@ export const DataForm = ({ data, setData }) => {
   };
 
   const submitSleep = () => {
-    setData([
-      ...data,
-      {
-        date: moment().format(),
-        day: moment().format("ddd"),
-        Recommended: 8,
-        Sleep: getSleepTime(sleepTime.from, sleepTime.to),
-        Nap: 0,
-      },
-    ]);
+    const newItem = {
+      user_id: userId,
+      sleep: getSleepTime(sleepTime.from, sleepTime.to),
+      nap: 0,
+    };
+
+    addItem(newItem);
   };
+
   const submitNap = () => {
-    const newData = [...data];
-    newData[data.length - 1].Nap = getSleepTime(napTime.from, napTime.to);
+    const newItem = {
+      user_id: userId,
+      sleep: getSleepTime(sleepTime.from, sleepTime.to),
+      nap: getSleepTime(napTime.from, napTime.to),
+    };
+
     setShowNap(false);
-    setData(newData);
+    editItem(newItem);
   };
 
   const removeLastItem = () => {
-    const newData = [...data];
-    newData.pop();
-    setData(newData);
+    deleteItem(data.pop()._id);
   };
 
   const Pickers = ({ type }) => {
@@ -99,8 +99,9 @@ export const DataForm = ({ data, setData }) => {
       <Box mt={3}>
         <Grid container direction="column" justify="center" alignItems="center">
           {/* check if sleep is filled */}
-          {moment(data[data.length - 1].date).format("MMM Do YY") ===
-          moment().format("MMM Do YY") ? (
+          {data.length > 0 &&
+          moment(data[data.length - 1].date).format("MMM Do YY") ===
+            moment().format("MMM Do YY") ? (
             <>
               <Box textAlign="center" display={showNap ? "none" : "block"}>
                 <h2>Have a nice day!</h2>
@@ -117,7 +118,7 @@ export const DataForm = ({ data, setData }) => {
               </Box>
 
               {/* check if nap is filled */}
-              {data[data.length - 1].Nap === 0 && (
+              {data[data.length - 1].nap === 0 && (
                 <>
                   <Box display={showNap ? "none" : "block"} mt={3}>
                     <Grid
