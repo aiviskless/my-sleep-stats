@@ -38,7 +38,7 @@ const SleepTracker = ({
   const [chartData, setChartData] = useState(items);
 
   return (
-    <Box mt={5}>
+    <Box>
       <Grid container direction="column" justify="center" alignItems="center">
         <Chart
           userName={auth.user.name}

@@ -1,31 +1,36 @@
 import React, { useState } from "react";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import { Box, Button } from "@material-ui/core";
+import { Grid, Button } from "@material-ui/core";
+import { Title } from "./components/Title";
 
 export const Auth = () => {
-  const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
 
   return (
-    <Box>
-      Auth
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => setShowLogin(true)}
+    <>
+      <Title title={"My Sleep Stats"} />
+      <Grid
+        style={{
+          height: "100vh",
+          maxWidth: 300,
+          margin: "0 auto",
+        }}
+        container
+        direction="column"
+        justify="center"
+        alignItems="center"
       >
-        Login
-      </Button>
+        {showRegister ? <Register /> : <Login />}
+      </Grid>
       <Button
-        variant="contained"
+        size="large"
         color="primary"
-        onClick={() => setShowRegister(true)}
+        onClick={() => setShowRegister(!showRegister)}
+        className="bottom"
       >
-        Register
+        {showRegister ? "Login" : "Register"}
       </Button>
-      {showLogin && <Login />}
-      {showRegister && <Register />}
-    </Box>
+    </>
   );
 };

@@ -33,17 +33,10 @@ const Register = ({ error, register, clearErrors, isAuthenticated }) => {
     } else {
       setMsg(null);
     }
-
-    // if (modal && isAuthenticated) {
-    //   toggle()
-    // }
   }, [error]);
 
   return (
     <Grid container direction="column" justify="center" alignItems="center">
-      <Box alignItems="left" mb={2}>
-        <h1>Register</h1>
-      </Box>
       {msg && <Alert severity="error">{msg}</Alert>}
       <form noValidate autoComplete="off">
         {["name", "email", "password"].map((field, i) => {
@@ -54,7 +47,6 @@ const Register = ({ error, register, clearErrors, isAuthenticated }) => {
                 type={field === "password" ? "password" : ""}
                 id={field}
                 label={field.charAt(0).toUpperCase() + field.slice(1)}
-                variant="outlined"
                 onChange={(e) =>
                   setFieldValues({ ...fieldValues, [field]: e.target.value })
                 }
@@ -62,8 +54,14 @@ const Register = ({ error, register, clearErrors, isAuthenticated }) => {
             </Box>
           );
         })}
-        <Button variant="contained" color="primary" onClick={() => onSubmit()}>
-          Submit
+        <Button
+          fullWidth
+          size="large"
+          variant="contained"
+          color="primary"
+          onClick={() => onSubmit()}
+        >
+          Register
         </Button>
       </form>
     </Grid>

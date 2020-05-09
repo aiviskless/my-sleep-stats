@@ -9,11 +9,14 @@ import {
   Line,
   Tooltip,
 } from "recharts";
+import { Box } from "@material-ui/core";
 
 export const Chart = ({ data, userName }) => {
   return (
     <>
-      <h1>{userName}'s Sleep Stats</h1>
+      <Box mt={5}>
+        <h1>{userName}'s Sleep Stats</h1>
+      </Box>
       <ComposedChart
         style={{ marginLeft: -50, marginTop: 20 }}
         width={360}
