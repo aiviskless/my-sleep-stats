@@ -3,9 +3,8 @@ import { Button, Box, TextField, Grid } from "@material-ui/core";
 import { connect } from "react-redux";
 import { register } from "../actions/authActions";
 import Alert from "@material-ui/lab/Alert";
-import { clearErrors } from "../actions/errorActions";
 
-const Register = ({ error, register, clearErrors, isAuthenticated }) => {
+const Register = ({ error, register }) => {
   const [fieldValues, setFieldValues] = useState({
     name: "",
     email: "",
@@ -15,7 +14,8 @@ const Register = ({ error, register, clearErrors, isAuthenticated }) => {
 
   const [msg, setMsg] = useState("");
 
-  const onSubmit = () => {
+  const onSubmit = (e) => {
+    e.preventDefault();
     const { name, email, password } = fieldValues;
 
     const newUser = {
@@ -37,8 +37,12 @@ const Register = ({ error, register, clearErrors, isAuthenticated }) => {
 
   return (
     <Grid container direction="column" justify="center" alignItems="center">
-      {msg && <Alert severity="error">{msg}</Alert>}
-      <form noValidate autoComplete="off">
+      {msg && (
+        <Box width="100%" mb={2}>
+          <Alert severity="error">{msg}</Alert>
+        </Box>
+      )}
+      <form noValidate autoComplete="off" onSubmit={(e) => onSubmit(e)}>
         {["name", "email", "password"].map((field, i) => {
           return (
             <Box mb={3} key={i}>
@@ -58,8 +62,9 @@ const Register = ({ error, register, clearErrors, isAuthenticated }) => {
           fullWidth
           size="large"
           variant="contained"
+          type="submit"
           color="primary"
-          onClick={() => onSubmit()}
+          onClick={(e) => onSubmit(e)}
         >
           Register
         </Button>
@@ -69,8 +74,7 @@ const Register = ({ error, register, clearErrors, isAuthenticated }) => {
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
   error: state.error,
 });
 
-export default connect(mapStateToProps, { register, clearErrors })(Register);
+export default connect(mapStateToProps, { register })(Register);

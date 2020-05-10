@@ -3,9 +3,8 @@ import { Button, Box, TextField, Grid } from "@material-ui/core";
 import { connect } from "react-redux";
 import { login } from "../actions/authActions";
 import Alert from "@material-ui/lab/Alert";
-import { clearErrors } from "../actions/errorActions";
 
-const Login = ({ error, login, clearErrors, isAuthenticated }) => {
+const Login = ({ error, login }) => {
   const [fieldValues, setFieldValues] = useState({
     email: "",
     password: "",
@@ -13,7 +12,9 @@ const Login = ({ error, login, clearErrors, isAuthenticated }) => {
   });
 
   const [msg, setMsg] = useState("");
-  const onSubmit = () => {
+
+  const onSubmit = (e) => {
+    e.preventDefault();
     const { email, password } = fieldValues;
     const User = {
       email,
@@ -33,8 +34,12 @@ const Login = ({ error, login, clearErrors, isAuthenticated }) => {
 
   return (
     <Grid container direction="column" justify="center" alignItems="center">
-      {msg && <Alert severity="error">{msg}</Alert>}
-      <form noValidate autoComplete="off" onSubmit={() => onSubmit()}>
+      {msg && (
+        <Box width="100%" mb={2}>
+          <Alert severity="error">{msg}</Alert>
+        </Box>
+      )}
+      <form noValidate autoComplete="off" onSubmit={(e) => onSubmit(e)}>
         {["email", "password"].map((field, i) => {
           return (
             <Box mb={3} key={i}>
@@ -55,7 +60,8 @@ const Login = ({ error, login, clearErrors, isAuthenticated }) => {
           size="large"
           variant="contained"
           color="primary"
-          onClick={() => onSubmit()}
+          type="submit"
+          onClick={(e) => onSubmit(e)}
         >
           Login
         </Button>
@@ -65,8 +71,7 @@ const Login = ({ error, login, clearErrors, isAuthenticated }) => {
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
   error: state.error,
 });
 
-export default connect(mapStateToProps, { login, clearErrors })(Login);
+export default connect(mapStateToProps, { login })(Login);
