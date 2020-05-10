@@ -19,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/aiviskless/sleep/issues"
   },
-  "homepage": "https://github.com/aiviskless/sleep#readme",
+  "homepage": "http://sleep.aviander.com/",
   "dependencies": {
     "concurrently": "^5.2.0",
     "express": "^4.17.1",
