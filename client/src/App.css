@@ -62,20 +62,6 @@ h4 {
   transform: translate(-50%, -50%);
 }
 
-.top {
-  position: absolute !important;
-  top: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-}
-
-.Title {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .bottom {
   position: absolute !important;
   bottom: 20px;

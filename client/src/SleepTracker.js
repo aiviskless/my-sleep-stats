@@ -51,8 +51,8 @@ const SleepTracker = ({
           editItem={editItem}
           data={items}
         />
-        <Logout />
       </Grid>
+      <Logout />
     </Box>
   );
 };

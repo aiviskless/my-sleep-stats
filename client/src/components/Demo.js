@@ -22,13 +22,7 @@ export const Demo = () => {
 
   return (
     <>
-      <Button
-        onClick={handleClickOpen}
-        className="top"
-        style={{ top: 100, width: "fit-content" }}
-      >
-        View demo
-      </Button>
+      <Button onClick={handleClickOpen}>View demo</Button>
 
       <Dialog
         open={open}
