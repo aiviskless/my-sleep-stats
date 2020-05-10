@@ -7,7 +7,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import Fab from "@material-ui/core/Fab";
 import moment from "moment";
 
-export const DataForm = ({ data, deleteItem, addItem, userId, editItem }) => {
+export const Form = ({ data, deleteItem, addItem, userId, editItem }) => {
   const [sleepTime, setSleepTime] = useState({
     from: new Date("2020-01-01T23:00:00"),
     to: new Date("2020-01-02T07:00:00"),

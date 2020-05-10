@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Grid, Box } from "@material-ui/core";
 import { Chart } from "./components/Chart";
-import { DataForm } from "./components/DataForm";
+import { Form } from "./components/Form";
 import Logout from "./components/Logout";
 import moment from "moment";
 import { connect } from "react-redux";
@@ -44,7 +44,7 @@ const SleepTracker = ({
           userName={auth.user.name}
           data={chartData.slice(Math.max(items.length - 7, 0))}
         />
-        <DataForm
+        <Form
           userId={auth.user._id}
           addItem={addItem}
           deleteItem={deleteItem}
