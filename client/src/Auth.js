@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import { Grid, Button, Box } from "@material-ui/core";
+import { Button, Box } from "@material-ui/core";
 import { Title } from "./components/Title";
 import { Demo } from "./components/Demo";
 
@@ -9,27 +9,24 @@ export const Auth = () => {
   const [showRegister, setShowRegister] = useState(false);
 
   return (
-    <Grid
-      style={{
-        height: "100vh",
-      }}
-      container
-      direction="column"
-      justify="space-between"
+    <Box
+      style={{ height: "calc(100vh - 80px)" }}
+      display="flex"
+      flexDirection="column"
+      justifyContent="space-between"
       alignItems="center"
+      flexWrap="nowrap"
     >
-      <Box mt={5}>
-        <Grid container direction="column" alignItems="center">
-          <Title />
-          <Box mt={2}>
-            <Demo />
-          </Box>
-        </Grid>
+      <Box mt={5} display="flex" flexDirection="column" alignItems="center">
+        <Title />
+        <Box mt={2}>
+          <Demo />
+        </Box>
       </Box>
 
       {showRegister ? <Register /> : <Login />}
 
-      <Box mb={5}>
+      <Box mt={3}>
         <Button
           size="large"
           color="primary"
@@ -38,6 +35,6 @@ export const Auth = () => {
           {showRegister ? "Login" : "Register"}
         </Button>
       </Box>
-    </Grid>
+    </Box>
   );
 };

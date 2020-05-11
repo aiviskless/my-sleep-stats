@@ -21,7 +21,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <AppContainer style={{ margin: 0 }} />
+        <AppContainer />
       </ThemeProvider>
     </Provider>
   );

@@ -5,7 +5,7 @@ body {
   background-color: #141414;
   color: #fff;
   font-family: "Roboto", sans-serif;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .MuiInputBase-input {
@@ -60,13 +60,6 @@ h4 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
-
-.bottom {
-  position: absolute !important;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
 }
 
 @media (max-width: 767px) {

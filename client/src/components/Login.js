@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Box, TextField, Grid } from "@material-ui/core";
+import { Button, Box, TextField } from "@material-ui/core";
 import { connect } from "react-redux";
 import { login } from "../actions/authActions";
 import Alert from "@material-ui/lab/Alert";
@@ -33,9 +33,14 @@ const Login = ({ error, login }) => {
   }, [error]);
 
   return (
-    <Grid container direction="column" justify="center" alignItems="center">
+    <Box
+      display="flex"
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="center"
+    >
       {msg && (
-        <Box width="100%" mb={2}>
+        <Box mb={2}>
           <Alert severity="error">{msg}</Alert>
         </Box>
       )}
@@ -66,7 +71,7 @@ const Login = ({ error, login }) => {
           Login
         </Button>
       </form>
-    </Grid>
+    </Box>
   );
 };
 

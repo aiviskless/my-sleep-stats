@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Box } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import { Chart } from "./components/Chart";
 import { Form } from "./components/Form";
 import Logout from "./components/Logout";
@@ -27,8 +27,8 @@ const SleepTracker = ({
         date: item.date,
         day: moment(item.date).format("ddd"),
         Recommended: 8,
-        Sleep: item.sleep,
-        Nap: item.nap,
+        Sleep: Math.round(item.sleep * 100) / 100,
+        Nap: Math.round(item.nap * 100) / 100,
       };
     });
 
@@ -38,8 +38,19 @@ const SleepTracker = ({
   const [chartData, setChartData] = useState(items);
 
   return (
-    <Box>
-      <Grid container direction="column" justify="center" alignItems="center">
+    <Box
+      style={{ height: "calc(100vh - 80px)" }}
+      display="flex"
+      flexDirection="column"
+      justifyContent="space-between"
+      alignItems="center"
+    >
+      <Box
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+      >
         <Chart
           userName={auth.user.name}
           data={chartData.slice(Math.max(items.length - 7, 0))}
@@ -51,8 +62,10 @@ const SleepTracker = ({
           editItem={editItem}
           data={items}
         />
-      </Grid>
-      <Logout />
+      </Box>
+      <Box mt={3}>
+        <Logout />
+      </Box>
     </Box>
   );
 };

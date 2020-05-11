@@ -4,11 +4,7 @@ import { logout } from "../actions/authActions";
 import Button from "@material-ui/core/Button";
 
 const Logout = ({ logout }) => {
-  return (
-    <Button className="bottom" onClick={() => logout()}>
-      Logout
-    </Button>
-  );
+  return <Button onClick={() => logout()}>Logout</Button>;
 };
 
 export default connect(null, { logout })(Logout);
